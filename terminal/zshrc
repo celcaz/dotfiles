@@ -1,0 +1,35 @@
+# ---------- History ----------
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+
+# ---------- Completion ----------
+autoload -Uz compinit
+compinit
+
+# ---------- Starship ----------
+eval "$(starship init zsh)"
+
+# ---------- Catppuccin syntax colors ----------
+typeset -A ZSH_HIGHLIGHT_STYLES
+
+ZSH_HIGHLIGHT_STYLES[command]='fg=#89b4fa'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#89b4fa'
+ZSH_HIGHLIGHT_STYLES[function]='fg=#89b4fa'
+
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#94e2d5'
+ZSH_HIGHLIGHT_STYLES[path]='fg=#a6e3a1'
+
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#f38ba8'
+ZSH_HIGHLIGHT_STYLES[arg0]='fg=#cdd6f4'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=#fab387'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=#fab387'
+
+
+# ---------- Plugins ----------
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
