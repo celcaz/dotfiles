@@ -1,31 +1,22 @@
--- Pull in the wezterm API
-local wezterm = require 'wezterm'
+local wezterm = require "wezterm"
 
-local config = wezterm.config_builder();
--- This table will hold the configuration.
+local config = {}
+if wezterm.config_builder then
+  config = wezterm.config_builder()
+end
 
--- General
-
-config.default_domain = 'WSL:archlinux'
+-- Common
 config.font_size = 19
-config.color_scheme = "Catpuccin Mocha"
-
-
+config.enable_tab_bar = false
 config.window_decorations = "RESIZE"
--- Tirar tab
---config.enable_tab_bar = false
-
-config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 0,
-  bottom = 0,
-}
-
 config.window_background_opacity = 0.9
--- If you want, you can also add other configurations here (font, color scheme, etc.)
--- config.font = wezterm.font 'MesloLGS Nerd Font Mono'
--- config.color_scheme = 'AdventureTime'
+config.window_padding = { left = 20, right = 20, top = 20, bottom = 2 }
+config.color_scheme = "Catppuccin Mocha"
 
--- and finally, return the configuration to wezterm
+-- Windows/WSL only
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+if is_windows then
+  config.default_domain = "WSL:archlinux"
+end
+
 return config
