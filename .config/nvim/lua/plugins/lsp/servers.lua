@@ -2,13 +2,23 @@
 local on_attach = function(_, bufnr)
   local opts = { buffer = bufnr, silent = true }
 
+  -- Navegação
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+  -- Info
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+
+  -- Refactor
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+
+  -- Diagnostics
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+  vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+  vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, opts)
 end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -41,7 +51,7 @@ vim.lsp.config("eslint", {
   capabilities = capabilities,
 })
 
-vim.lsp.config("ts_ls", {
-on_attach = on_attach,
-capabilities = capabilities,
-})
+-- 🔥 IMPORTANTE: habilitar os servers
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
+vim.lsp.enable("eslint")
